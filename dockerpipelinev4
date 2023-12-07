@@ -8,19 +8,19 @@ pipeline {
     }
 
     stages {
-        stage("checkout") {
+        stage("git checkout") {
             steps {
                 checkout scm
             }
         }
         
-        stage("for pull") {
+        stage("Build image") {
             steps{
                 sh "docker build -t merajaprasd/dev-server:$BUILD_NUMBER ."
             }
         }
 
-        stage('Login to DockerHub') {
+        stage('DockerHub Login') {
             steps {
                 sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
             }
@@ -41,4 +41,3 @@ post {
         }
     }
 }
-
