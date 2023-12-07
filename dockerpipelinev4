@@ -16,7 +16,7 @@ pipeline {
         
         stage("for pull") {
             steps{
-                sh "docker build -t merajaprasd/dev-server:BUILD_NUMBER ."
+                sh "docker build -t merajaprasd/dev-server:$BUILD_NUMBER ."
             }
         }
 
@@ -29,7 +29,7 @@ pipeline {
 
         stage("push images") {
             steps {
-                sh "docker push merajaprasd/dev-server:BUILD_NUMBER"
+                sh "docker push merajaprasd/dev-server:$BUILD_NUMBER"
             }
         }
 
