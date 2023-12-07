@@ -1,0 +1,44 @@
+pipeline {
+    agent { label "rptech-dev-app" }
+
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('merajaprasd-dockerhub')
+        DOCKERHUB_USERNAME = 'merajaprasd'
+        DOCKERHUB_PASSWORD = 'dckr_pat_g1o9ozdy67YnGct7SSB5E1HIxbI'
+    }
+
+    stages {
+        stage("checkout") {
+            steps {
+                checkout scm
+            }
+        }
+        
+        stage("for pull") {
+            steps{
+                sh "docker build -t merajaprasd/dev-server:BUILD_NUMBER ."
+            }
+        }
+
+        stage('Login to DockerHub') {
+            steps {
+                sh "docker login -u ${DOCKERHUB_USERNAME} -p ${DOCKERHUB_PASSWORD}"
+            }
+        }
+  
+
+        stage("push images") {
+            steps {
+                sh "docker push merajaprasd/dev-server:BUILD_NUMBER"
+            }
+        }
+
+    }
+    
+post {
+        always {
+            sh 'docker rm -f dev-server'
+        }
+    }
+}
+
