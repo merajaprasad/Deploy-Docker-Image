@@ -1,6 +1,6 @@
 
 # Docker Project
-Create custom Docker images and push to DockerHub through jenkins pipeline from GitHub Repo.
+Deploying custom Docker images and push to DockerHub using jenkins Declarative pipeline.
 # Deployment
 ### Dockerfile
 ```
